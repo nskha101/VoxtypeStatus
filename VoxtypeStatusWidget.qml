@@ -116,6 +116,16 @@ PluginComponent {
         }
     }
 
+    Process {
+        id: restartService
+        command: ["systemctl", "--user", "restart", "voxtype"]
+    }
+
+    Process {
+        id: openConfig
+        command: ["sh", "-c", "${EDITOR:-code} ~/.config/voxtype/config.toml"]
+    }
+
     popoutContent: Component {
         PopoutComponent {
             headerText: "Voxtype"
@@ -147,10 +157,55 @@ PluginComponent {
                     color: Theme.surfaceText
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
+
+                Column {
+                    width: parent.width
+                    spacing: Theme.spacingS
+
+                    Rectangle {
+                        width: parent.width
+                        height: 36
+                        radius: Theme.radius
+                        color: restartHover.hovered ? Theme.surfaceHover : Theme.surface
+
+                        StyledText {
+                            text: "\uDB82\uDD51  Restart Service"
+                            font.pixelSize: Theme.fontSizeSmall
+                            color: Theme.surfaceText
+                            anchors.centerIn: parent
+                        }
+
+                        HoverHandler { id: restartHover }
+
+                        TapHandler {
+                            onTapped: restartService.running = true
+                        }
+                    }
+
+                    Rectangle {
+                        width: parent.width
+                        height: 36
+                        radius: Theme.radius
+                        color: configHover.hovered ? Theme.surfaceHover : Theme.surface
+
+                        StyledText {
+                            text: "\uDB80\uDD06  Open Config"
+                            font.pixelSize: Theme.fontSizeSmall
+                            color: Theme.surfaceText
+                            anchors.centerIn: parent
+                        }
+
+                        HoverHandler { id: configHover }
+
+                        TapHandler {
+                            onTapped: openConfig.running = true
+                        }
+                    }
+                }
             }
         }
     }
 
     popoutWidth: 280
-    popoutHeight: 200
+    popoutHeight: 280
 }
