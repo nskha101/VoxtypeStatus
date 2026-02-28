@@ -1,0 +1,14 @@
+{
+    "id": "voxtypeStatus",
+    "name": "Voxtype Status",
+    "description": "Shows voxtype voice-to-text state (idle/recording/transcribing) in the bar",
+    "version": "1.0.0",
+    "author": "nith",
+    "icon": "mic",
+    "type": "widget",
+    "capabilities": ["dankbar-widget"],
+    "component": "./VoxtypeStatusWidget.qml",
+    "settings": "./VoxtypeStatusSettings.qml",
+    "permissions": ["settings_read", "settings_write", "process"],
+    "requires": ["voxtype"]
+}
