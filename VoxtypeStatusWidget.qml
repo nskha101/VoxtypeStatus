@@ -119,6 +119,16 @@ PluginComponent {
     Process {
         id: restartService
         command: ["systemctl", "--user", "restart", "voxtype"]
+        onExited: (exitCode, exitStatus) => {
+            if (exitCode === 0) {
+                restartToast.running = true;
+            }
+        }
+    }
+
+    Process {
+        id: restartToast
+        command: ["dms", "ipc", "toast", "info", "Voxtype service restarted"]
     }
 
     Process {
